@@ -11,7 +11,7 @@
     "test:coverage": "jest --coverage"
   },
   "lint-staged": {
-    "*.js?(x)": [
+    "*.{jsx,js}": [
       "prettier --write",
       "git add"
     ]
