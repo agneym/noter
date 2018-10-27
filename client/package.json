@@ -6,15 +6,13 @@
   "scripts": {
     "build": "webpack-cli --mode=production --env=prod",
     "start": "webpack-dev-server --mode=development --env=dev",
-    "precommit": "lint-staged",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
-  "lint-staged": {
-    "*.{jsx,js}": [
-      "prettier --write",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "author": "Boy With Silver Wings <agney@outlook.in>",
   "license": "ISC",
@@ -44,14 +42,13 @@
     "file-loader": "^0.11.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^0.14.3",
     "jest": "^22.4.4",
     "jest-enzyme": "^4.2.0",
-    "lint-staged": "^4.3.0",
     "npm-install-webpack-plugin": "^4.0.5",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.2.0",
     "prettier": "^1.14.3",
+    "pretty-quick": "^1.8.0",
     "purify-css": "^1.2.6",
     "purifycss-webpack": "^0.7.0",
     "react-addons-test-utils": "^15.6.2",
@@ -71,6 +68,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "husky": "^1.1.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router": "^4.3.1",
