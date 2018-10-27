@@ -3,7 +3,7 @@ const commonPaths = require("./common-paths");
 
 const config = {
   devServer: {
-    port: 3000,
+    port: 8000,
     open: true,
     host: "0.0.0.0",
     overlay: true,
