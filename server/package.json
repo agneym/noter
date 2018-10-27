@@ -1,7 +1,7 @@
 {
-  "name": "node-start",
+  "name": "noder-backend",
   "version": "1.0.0",
-  "description": "A Node JS starter Project",
+  "description": "A Node JS Noter Project",
   "main": "index.js",
   "scripts": {
     "start": "nodemon .",
