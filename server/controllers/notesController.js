@@ -47,7 +47,7 @@ exports.create = [
         const response = {
           status: HTTP_CODE.HTTP_FAILURE,
           result: "Note creation failed",
-          description: JSON.stringify(failure)
+          errors: JSON.stringify(failure)
         };
         res.status(400).json(response);
       }
@@ -86,9 +86,62 @@ exports.findOne = (req, res) => {
     failure => {
       const response = {
         status: HTTP_CODE.HTTP_FAILURE,
-        result: failure
+        errors: failure
       };
       res.json(response);
     }
   );
 };
+
+exports.update = [
+  body("text")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Name must have at least 3 characters.")
+    .isAlphanumeric()
+    .withMessage("Name has non-alphanumeric characters."),
+  sanitizeBody("title")
+    .trim()
+    .escape(),
+  sanitizeBody("text")
+    .trim()
+    .escape(),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const response = {
+        status: HTTP_CODE.HTTP_FAILURE,
+        errors: errors.array()
+      };
+      res.json(response);
+      return;
+    }
+    const { id } = req.params;
+    const { text, title } = req.body;
+    Note.upsert(
+      {
+        text,
+        title,
+        id
+      },
+      {
+        returning: true
+      }
+    ).then(
+      ([result, updated]) => {
+        const response = {
+          status: HTTP_CODE.HTTP_SUCCESS,
+          result: result
+        };
+        res.json(response);
+      },
+      failure => {
+        const response = {
+          status: HTTP_CODE.HTTP_FAILURE,
+          error: failure
+        };
+        res.json(response);
+      }
+    );
+  }
+];
