@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Skeleton } from "antd";
+import { Row, Col, Skeleton, List } from "antd";
 
 import Note from "./Note";
 import api from "./api";
@@ -47,13 +47,11 @@ class Content extends Component {
       );
     }
     return (
-      <Row>
-        {this.state.data.map(item => (
-          <Col span={8}>
-            <Note title={item.title} text={item.text} />
-          </Col>
-        ))}
-      </Row>
+      <List
+        grid={{ gutter: 16, column: 4 }}
+        dataSource={this.state.data}
+        renderItem={item => <Note title={item.title}>{item.text}</Note>}
+      />
     );
   }
 }
