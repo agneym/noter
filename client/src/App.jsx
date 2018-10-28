@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
 
+import AppContent from "./Content";
+
 const { Header, Footer, Sider, Content } = Layout;
 
 class App extends Component {
@@ -29,7 +31,7 @@ class App extends Component {
           </Sider>
           <Layout style={{ marginLeft: "200px" }}>
             <Content style={{ padding: "0 50px", marginTop: 64 }}>
-              <p style={{ height: "100vh" }}>Content</p>
+              <AppContent />
             </Content>
             <Footer>Footer</Footer>
           </Layout>
