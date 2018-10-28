@@ -157,7 +157,7 @@ exports.delete = (req, res) => {
           status: HTTP_CODE.HTTP_FAILURE,
           result: `Note with ${id} does not exist`
         };
-        res.json(response);
+        res.status(404).json(response);
       }
     },
     failure => {
@@ -165,7 +165,7 @@ exports.delete = (req, res) => {
         status: HTTP_CODE.HTTP_FAILURE,
         error: failure
       };
-      res.json(response);
+      res.status(404).json(response);
     }
   );
 };
