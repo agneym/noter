@@ -9,8 +9,8 @@ router.post("/", notes.create);
 // Retrieve all Notes
 router.get("/", notes.findAll);
 
-// // Retrieve a single Note with noteId
-// router.get('/notes/:noteId', notes.findOne);
+// Retrieve a single Note with id
+router.get("/:id", notes.findOne);
 
 // // Update a Note with noteId
 // router.put('/notes/:noteId', notes.update);

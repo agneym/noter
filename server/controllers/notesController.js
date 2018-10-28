@@ -64,3 +64,31 @@ exports.findAll = (req, res) => {
     res.status(200).json(response);
   });
 };
+
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  Note.findOne({ where: { id: id } }).then(
+    result => {
+      if (result) {
+        const response = {
+          status: HTTP_CODE.HTTP_SUCCESS,
+          result
+        };
+        res.json(response);
+      } else {
+        const response = {
+          status: HTTP_CODE.HTTP_FAILURE,
+          result: "No Result Found"
+        };
+        res.status(404).json(response);
+      }
+    },
+    failure => {
+      const response = {
+        status: HTTP_CODE.HTTP_FAILURE,
+        result: failure
+      };
+      res.json(response);
+    }
+  );
+};
