@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
+import PropTypes from "prop-types";
+
 import api from "./api";
 
 const { TextArea } = Input;
@@ -29,7 +31,13 @@ class CreateNew extends Component {
     const { text, title } = this.state;
     api.notes
       .create(title, text)
-      .then(response => {})
+      .then(response => {
+        this.props.createdNew(response.data.result);
+        this.setState({
+          text: "",
+          title: "",
+        });
+      })
       .finally(() => {
         this.setState({
           loading: false,
@@ -56,6 +64,7 @@ class CreateNew extends Component {
           type="primary"
           loading={this.state.loading}
           onClick={this.createNote}
+          disabled={this.state.loading}
         >
           Create
         </Button>
@@ -63,5 +72,9 @@ class CreateNew extends Component {
     );
   }
 }
+
+CreateNew.propTypes = {
+  createdNew: PropTypes.func.isRequired,
+};
 
 export default CreateNew;

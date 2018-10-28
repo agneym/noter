@@ -35,12 +35,17 @@ class Content extends Component {
         });
       });
   };
+  createdNew = note => {
+    this.setState(prevState => ({
+      data: [note, ...prevState.data],
+    }));
+  };
   render() {
     if (this.state.loading) {
       return (
         <Row>
-          {[1, 2, 3].map(() => (
-            <Col span={8}>
+          {[1, 2, 3].map(item => (
+            <Col span={8} key={item}>
               <Skeleton active />
             </Col>
           ))}
@@ -49,7 +54,7 @@ class Content extends Component {
     }
     return (
       <Fragment>
-        <CreateNew />
+        <CreateNew createdNew={this.createdNew} />
         <List
           grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
           dataSource={this.state.data}
