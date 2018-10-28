@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card } from "antd";
+import { Card, List } from "antd";
 
 function Note({ title, children }) {
   return (
-    <Card title={title}>
-      <p>{children}</p>
-    </Card>
+    <List.Item>
+      <Card title={title}>
+        <p>{children}</p>
+      </Card>
+    </List.Item>
   );
 }
 

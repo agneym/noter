@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Row, Col, Skeleton, List } from "antd";
 
 import Note from "./Note";
 import api from "./api";
+import CreateNew from "./CreateNew";
 
 class Content extends Component {
   constructor(props) {
@@ -47,11 +48,18 @@ class Content extends Component {
       );
     }
     return (
-      <List
-        grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
-        dataSource={this.state.data}
-        renderItem={item => <Note title={item.title}>{item.text}</Note>}
-      />
+      <Fragment>
+        <CreateNew />
+        <List
+          grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
+          dataSource={this.state.data}
+          renderItem={item => (
+            <Note key={item.id} title={item.title}>
+              {item.text}
+            </Note>
+          )}
+        />
+      </Fragment>
     );
   }
 }
