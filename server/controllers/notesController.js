@@ -2,7 +2,7 @@ const { body, validationResult } = require("express-validator/check");
 const { sanitizeBody } = require("express-validator/filter");
 const HTTP_CODE = require("../config/httpStatus");
 
-const Models = require("../models");
+const Note = require("../models").Note;
 
 /**
  * Create a New Note
@@ -32,7 +32,7 @@ exports.create = [
     }
 
     // Create a Note
-    Models.Note.create({
+    Note.create({
       title: req.body.title || "Untitled Note",
       text: req.body.text
     }).then(
@@ -54,3 +54,13 @@ exports.create = [
     );
   }
 ];
+
+exports.findAll = (req, res) => {
+  Note.findAll().then(result => {
+    const response = {
+      status: HTTP_CODE.HTTP_SUCCESS,
+      result: result
+    };
+    res.status(200).json(response);
+  });
+};
