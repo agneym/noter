@@ -6,9 +6,9 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const logger = require("morgan");
 const cors = require("cors");
-const routes = require("./routes");
 
-const connectDb = require("./config/connectDb");
+const routes = require("./routes");
+const models = require("./models");
 
 dotenv.load({ path: ".env" });
 
@@ -22,10 +22,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors());
 
-connectDb();
-
 app.use("/api", routes);
 
-app.listen(app.get("port"), () => {
-  console.log(`App running on port ${app.get("port")}`);
+models.sequelize.sync().then(() => {
+  app.listen(app.get("port"), () => {
+    console.log(`App running on port ${app.get("port")}`);
+  });
 });

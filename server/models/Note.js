@@ -1,13 +1,13 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../config/connectDb");
+const note = (sequelize, DataTypes) => {
+  const Note = sequelize.define("note", {
+    title: {
+      type: DataTypes.STRING
+    },
+    text: {
+      type: DataTypes.STRING
+    }
+  });
+  return Note;
+};
 
-const Note = sequelize.define("note", {
-  title: {
-    type: Sequelize.STRING
-  },
-  text: {
-    type: Sequelize.STRING
-  }
-});
-
-module.exports = Note;
+module.exports = note;
