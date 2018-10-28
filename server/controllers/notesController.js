@@ -55,7 +55,9 @@ exports.create = [
 ];
 
 exports.findAll = (req, res) => {
-  Note.findAll().then(result => {
+  Note.findAll({
+    order: [["createdAt", "DESC"]]
+  }).then(result => {
     const response = {
       status: HTTP_CODE.HTTP_SUCCESS,
       result: result
