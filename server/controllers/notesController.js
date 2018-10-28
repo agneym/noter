@@ -11,9 +11,7 @@ exports.create = [
   body("text")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Name must have at least 3 characters.")
-    .isAlphanumeric()
-    .withMessage("Name has non-alphanumeric characters."),
+    .withMessage("Name must have at least 3 characters."),
   sanitizeBody("title")
     .trim()
     .escape(),
@@ -97,9 +95,7 @@ exports.update = [
   body("text")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Name must have at least 3 characters.")
-    .isAlphanumeric()
-    .withMessage("Name has non-alphanumeric characters."),
+    .withMessage("Name must have at least 3 characters."),
   sanitizeBody("title")
     .trim()
     .escape(),
@@ -145,3 +141,23 @@ exports.update = [
     );
   }
 ];
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Note.destroy({ where: { id } }).then(
+    result => {
+      const response = {
+        status: HTTP_CODE.HTTP_SUCCESS,
+        result: `${result} rows Deleted Successfully`
+      };
+      res.json(response);
+    },
+    failure => {
+      const response = {
+        status: HTTP_CODE.HTTP_FAILURE,
+        error: failure
+      };
+      res.json(response);
+    }
+  );
+};
