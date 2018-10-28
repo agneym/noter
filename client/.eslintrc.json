@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -16,5 +17,6 @@
     "window": true,
     "document": true,
     "navigator": true
-  }
+  },
+  "plugins": ["babel"]
 }
