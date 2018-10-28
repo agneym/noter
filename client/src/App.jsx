@@ -2,39 +2,36 @@ import React, { Component } from "react";
 import { Layout } from "antd";
 
 import AppContent from "./Content";
+import {
+  StyledHeader,
+  StyledSider,
+  ContentLayout,
+  StyledContent,
+} from "./components/LayoutComponents";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer } = Layout;
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ""
+      data: "",
     };
   }
   render() {
     return (
       <Layout>
-        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-          Header
-        </Header>
+        <StyledHeader>Header</StyledHeader>
         <Layout>
-          <Sider
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              left: 0
-            }}
-          >
+          <StyledSider>
             <p>Sider</p>
-          </Sider>
-          <Layout style={{ marginLeft: "200px" }}>
-            <Content style={{ padding: "0 50px", marginTop: 64 }}>
+          </StyledSider>
+          <ContentLayout>
+            <StyledContent>
               <AppContent />
-            </Content>
+            </StyledContent>
             <Footer>Footer</Footer>
-          </Layout>
+          </ContentLayout>
         </Layout>
       </Layout>
     );
