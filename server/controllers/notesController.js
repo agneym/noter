@@ -37,14 +37,15 @@ exports.create = [
       success => {
         const response = {
           status: HTTP_CODE.HTTP_SUCCESS,
-          result: "Note added successfully"
+          message: "Note added successfully",
+          result: success
         };
         res.status(201).json(response);
       },
       failure => {
         const response = {
           status: HTTP_CODE.HTTP_FAILURE,
-          result: "Note creation failed",
+          message: "Note creation failed",
           errors: JSON.stringify(failure)
         };
         res.status(400).json(response);
@@ -54,7 +55,9 @@ exports.create = [
 ];
 
 exports.findAll = (req, res) => {
-  Note.findAll().then(result => {
+  Note.findAll({
+    order: [["createdAt", "DESC"]]
+  }).then(result => {
     const response = {
       status: HTTP_CODE.HTTP_SUCCESS,
       result: result
@@ -76,7 +79,7 @@ exports.findOne = (req, res) => {
       } else {
         const response = {
           status: HTTP_CODE.HTTP_FAILURE,
-          result: "No Result Found"
+          message: "No Result Found"
         };
         res.status(404).json(response);
       }

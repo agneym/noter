@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { Row, Col, Skeleton } from "antd";
+import React, { Component, Fragment } from "react";
+import { Row, Col, Skeleton, List } from "antd";
 
 import Note from "./Note";
 import api from "./api";
+import CreateNew from "./CreateNew";
 
 class Content extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Content extends Component {
     this.state = {
       loading: false,
       data: [],
+      deleting: false,
     };
   }
   componentDidMount() {
@@ -34,12 +36,34 @@ class Content extends Component {
         });
       });
   };
+  createdNew = note => {
+    this.setState(prevState => ({
+      data: [note, ...prevState.data],
+    }));
+  };
+  deleteNote = id => {
+    this.setState({
+      deleting: true,
+    });
+    api.notes
+      .remove(id)
+      .then(response => {
+        this.setState(prevState => ({
+          data: prevState.data.filter(item => item.id !== id),
+        }));
+      })
+      .finally(() => {
+        this.setState({
+          deleting: false,
+        });
+      });
+  };
   render() {
     if (this.state.loading) {
       return (
         <Row>
-          {[1, 2, 3].map(() => (
-            <Col span={8}>
+          {[1, 2, 3].map(item => (
+            <Col span={8} key={item}>
               <Skeleton active />
             </Col>
           ))}
@@ -47,13 +71,23 @@ class Content extends Component {
       );
     }
     return (
-      <Row>
-        {this.state.data.map(item => (
-          <Col span={8}>
-            <Note title={item.title} text={item.text} />
-          </Col>
-        ))}
-      </Row>
+      <Fragment>
+        <CreateNew createdNew={this.createdNew} />
+        <List
+          grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
+          dataSource={this.state.data}
+          renderItem={item => (
+            <Note
+              key={item.id}
+              title={item.title}
+              loading={this.state.deleting}
+              onDelete={() => this.deleteNote(item.id)}
+            >
+              {item.text}
+            </Note>
+          )}
+        />
+      </Fragment>
     );
   }
 }
