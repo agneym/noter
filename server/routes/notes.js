@@ -6,8 +6,8 @@ const notes = require("../controllers/notesController");
 // Create a new Note
 router.post("/", notes.create);
 
-// // Retrieve all Notes
-// router.get('/notes', notes.findAll);
+// Retrieve all Notes
+router.get("/", notes.findAll);
 
 // // Retrieve a single Note with noteId
 // router.get('/notes/:noteId', notes.findOne);
