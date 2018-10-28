@@ -12,10 +12,10 @@ router.get("/", notes.findAll);
 // Retrieve a single Note with id
 router.get("/:id", notes.findOne);
 
-// Update a Note with noteId
+// Update a Note with id
 router.put("/:id", notes.update);
 
 // Delete a Note with id
-router.delete("/notes/:id", notes.delete);
+router.delete("/:id", notes.delete);
 
 module.exports = router;

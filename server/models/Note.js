@@ -7,6 +7,15 @@ const note = (sequelize, DataTypes) => {
       },
       text: {
         type: DataTypes.STRING
+      },
+      deletedAt: {
+        type: DataTypes.DATE
+      },
+      createdAt: {
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        type: DataTypes.DATE
       }
     },
     {

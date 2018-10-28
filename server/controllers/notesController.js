@@ -146,11 +146,19 @@ exports.delete = (req, res) => {
   const id = req.params.id;
   Note.destroy({ where: { id } }).then(
     result => {
-      const response = {
-        status: HTTP_CODE.HTTP_SUCCESS,
-        result: `${result} rows Deleted Successfully`
-      };
-      res.json(response);
+      if (!!result) {
+        const response = {
+          status: HTTP_CODE.HTTP_SUCCESS,
+          result: `${result} row Deleted Successfully`
+        };
+        res.json(response);
+      } else {
+        const response = {
+          status: HTTP_CODE.HTTP_FAILURE,
+          result: `Note with ${id} does not exist`
+        };
+        res.json(response);
+      }
     },
     failure => {
       const response = {
