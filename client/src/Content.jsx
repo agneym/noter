@@ -11,6 +11,7 @@ class Content extends Component {
     this.state = {
       loading: false,
       data: [],
+      deleting: false,
     };
   }
   componentDidMount() {
@@ -40,6 +41,23 @@ class Content extends Component {
       data: [note, ...prevState.data],
     }));
   };
+  deleteNote = id => {
+    this.setState({
+      deleting: true,
+    });
+    api.notes
+      .remove(id)
+      .then(response => {
+        this.setState(prevState => ({
+          data: prevState.data.filter(item => item.id !== id),
+        }));
+      })
+      .finally(() => {
+        this.setState({
+          deleting: false,
+        });
+      });
+  };
   render() {
     if (this.state.loading) {
       return (
@@ -59,7 +77,12 @@ class Content extends Component {
           grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
           dataSource={this.state.data}
           renderItem={item => (
-            <Note key={item.id} title={item.title}>
+            <Note
+              key={item.id}
+              title={item.title}
+              loading={this.state.deleting}
+              onDelete={() => this.deleteNote(item.id)}
+            >
               {item.text}
             </Note>
           )}
