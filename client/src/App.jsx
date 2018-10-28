@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Layout } from "antd";
+
+const { Header, Footer, Sider, Content } = Layout;
 
 class App extends Component {
   constructor(props) {
@@ -6,17 +9,32 @@ class App extends Component {
     this.state = {
       data: ""
     };
-    this.handleClick = this.handleClick.bind(this);
-  }
-  handleClick(event) {
-    event.preventDefault();
   }
   render() {
     return (
-      <div>
-        <p>App</p>
-        <button onClick={this.handleClick}>Click</button>
-      </div>
+      <Layout>
+        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+          Header
+        </Header>
+        <Layout>
+          <Sider
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0
+            }}
+          >
+            <p>Sider</p>
+          </Sider>
+          <Layout style={{ marginLeft: "200px" }}>
+            <Content style={{ padding: "0 50px", marginTop: 64 }}>
+              <p style={{ height: "100vh" }}>Content</p>
+            </Content>
+            <Footer>Footer</Footer>
+          </Layout>
+        </Layout>
+      </Layout>
     );
   }
 }
