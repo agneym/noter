@@ -48,7 +48,7 @@ class Content extends Component {
     }
     return (
       <List
-        grid={{ gutter: 16, column: 4 }}
+        grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
         dataSource={this.state.data}
         renderItem={item => <Note title={item.title}>{item.text}</Note>}
       />
