@@ -6,13 +6,11 @@
       "jsx": true
     }
   },
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier"],
   "rules": {
     "no-console": 0,
-    "no-unused-vars": 1 
+    "no-unused-vars": 1,
+    "class-methods-use-this": 1
   },
   "globals": {
     "window": true,
