@@ -55,8 +55,11 @@ exports.create = [
 ];
 
 exports.findAll = (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
   Note.findAll({
-    order: [["createdAt", "DESC"]]
+    order: [["createdAt", "DESC"]],
+    offset: (page - 1) * limit,
+    limit
   }).then(result => {
     const response = {
       status: HTTP_CODE.HTTP_SUCCESS,
