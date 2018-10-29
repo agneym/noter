@@ -1,3 +1,4 @@
+const HTTP_CODE = require("../config/httpStatus");
 const NoteHistory = require("../models").NoteHistory;
 
 exports.findAll = (req, res) => {
@@ -9,6 +10,10 @@ exports.findAll = (req, res) => {
       modelId: id
     }
   }).then(result => {
-    res.json(result);
+    const response = {
+      status: HTTP_CODE.HTTP_SUCCESS,
+      result
+    };
+    res.json(response);
   });
 };
