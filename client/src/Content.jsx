@@ -110,7 +110,11 @@ class Content extends Component {
           footer={null}
           destroyOnClose
         >
-          <DetailModal id={detailModal} deleteNote={this.deleteNote} />
+          <DetailModal
+            id={detailModal}
+            deleteNote={this.deleteNote}
+            closeModal={this.hideDetailModal}
+          />
         </Modal>
       </Fragment>
     );
