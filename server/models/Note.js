@@ -1,3 +1,5 @@
+const sequelizeHistory = require("sequelize-history");
+
 const note = (sequelize, DataTypes) => {
   const Note = sequelize.define(
     "note",
@@ -23,7 +25,11 @@ const note = (sequelize, DataTypes) => {
       paranoid: true
     }
   );
-  return Note;
+  const NoteHistory = sequelizeHistory(Note, sequelize);
+  return {
+    Note,
+    NoteHistory
+  };
 };
 
 module.exports = note;

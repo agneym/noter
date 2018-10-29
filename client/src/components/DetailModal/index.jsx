@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { PureComponent, Fragment } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "lodash";
 import { Form, Input } from "antd";
@@ -10,7 +10,7 @@ import Footer from "./Footer";
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class DetailModal extends Component {
+class DetailModal extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -117,17 +117,17 @@ exports.update = [
     }
     const { id } = req.params;
     const { text, title } = req.body;
-    Note.upsert(
+    Note.update(
       {
         text,
-        title,
-        id
+        title
       },
       {
+        where: { id },
         returning: true
       }
     ).then(
-      ([result, updated]) => {
+      ([rowsUpdate, [result]]) => {
         const response = {
           status: HTTP_CODE.HTTP_SUCCESS,
           result: result
