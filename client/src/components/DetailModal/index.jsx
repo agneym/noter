@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import { debounce } from "lodash";
-import { Form, Input, Button } from "antd";
+import { Form, Input } from "antd";
 
 import api from "../../api";
 import Header from "./Header";
@@ -100,15 +99,20 @@ class DetailModal extends Component {
           </FormItem>
         </Form>
         <br />
-        <Footer />
+        <Footer time={this.state.editTime} closeModal={this.props.closeModal} />
       </Fragment>
     );
   }
 }
 
+DetailModal.defaultProps = {
+  id: null,
+};
+
 DetailModal.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   deleteNote: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default DetailModal;
