@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const notes = require("../controllers/notesController");
+const versions = require("../controllers/notesVersionController");
+
+// Get versions of a note
+router.get("/version", versions.findAll);
 
 // Create a new Note
 router.post("/", notes.create);

@@ -5,7 +5,6 @@ const sequelize = new Sequelize(`postgres://agney:@127.0.0.1:5432/noter`, {
 });
 
 const { Note, NoteHistory } = sequelize.import("./Note");
-
 const models = {
   Note,
   NoteHistory
