@@ -1,6 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { Card, List, Button } from "antd";
+
+const NoteContent = styled.p`
+  max-height: 200px;
+  overflow-y: auto;
+`;
 
 function Note({ title, children, loading, onDelete }) {
   return (
@@ -17,7 +23,7 @@ function Note({ title, children, loading, onDelete }) {
         }
         loading={loading}
       >
-        <p>{children}</p>
+        <NoteContent>{children}</NoteContent>
       </Card>
     </List.Item>
   );

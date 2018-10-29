@@ -47,7 +47,7 @@ class Content extends Component {
     });
     api.notes
       .remove(id)
-      .then(response => {
+      .then(() => {
         this.setState(prevState => ({
           data: prevState.data.filter(item => item.id !== id),
         }));
