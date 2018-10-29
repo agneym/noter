@@ -55,15 +55,20 @@ exports.create = [
 ];
 
 exports.findAll = (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
-  Note.findAll({
+  const { after, limit = 4 } = req.query;
+  Note.paginate({
     order: [["createdAt", "DESC"]],
-    offset: (page - 1) * limit,
-    limit
+    desc: true,
+    limit,
+    after
   }).then(result => {
+    const cursors = result.cursors;
     const response = {
       status: HTTP_CODE.HTTP_SUCCESS,
-      result: result
+      result: {
+        results: result.results,
+        after: cursors.hasNext ? cursors.after : null
+      }
     };
     res.status(200).json(response);
   });

@@ -1,4 +1,5 @@
 const sequelizeHistory = require("sequelize-history");
+const withPagination = require("sequelize-cursor-pagination");
 
 const note = (sequelize, DataTypes) => {
   const Note = sequelize.define(
@@ -26,6 +27,7 @@ const note = (sequelize, DataTypes) => {
     }
   );
   const NoteHistory = sequelizeHistory(Note, sequelize);
+  withPagination()(Note);
   return {
     Note,
     NoteHistory
