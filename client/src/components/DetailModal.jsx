@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { debounce } from "lodash";
 import { Form, Input, Button } from "antd";
 
 import api from "../api";
@@ -49,17 +50,26 @@ class DetailModal extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    this.setState(prevState => ({
-      noteData: {
-        ...prevState.noteData,
-        [name]: value,
-      },
-    }));
+    this.setState(
+      prevState => ({
+        noteData: {
+          ...prevState.noteData,
+          [name]: value,
+        },
+      }),
+      () => {
+        this.editNote();
+      }
+    );
   };
   deleteNote = () => {
     const { id, deleteNote } = this.props;
     deleteNote(id);
   };
+  editNote = debounce(() => {
+    const { title, text } = this.state;
+    api.notes.update(this.props.id, title, text);
+  }, 1000);
   render() {
     const { noteData } = this.state;
     return (
