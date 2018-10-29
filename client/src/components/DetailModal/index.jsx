@@ -6,6 +6,7 @@ import { Form, Input } from "antd";
 import api from "../../api";
 import Header from "./Header";
 import Footer from "./Footer";
+import Versions from "./Versions";
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -19,11 +20,13 @@ class DetailModal extends PureComponent {
         title: "",
         text: "",
       },
+      versions: [],
       editTime: null,
     };
   }
   componentDidMount() {
     this.loadData();
+    this.loadVersions();
   }
   loadData = () => {
     const { id } = this.props;
@@ -42,6 +45,14 @@ class DetailModal extends PureComponent {
           loadingInfo: false,
         });
       });
+  };
+  loadVersions = () => {
+    const { id } = this.props;
+    api.notes.listVersions(id).then(response => {
+      this.setState({
+        versions: response.data.result,
+      });
+    });
   };
   handleInputChange = event => {
     const target = event.target;
@@ -69,12 +80,26 @@ class DetailModal extends PureComponent {
     const {
       noteData: { title, text },
     } = this.state;
+    this.updateNote(title, text);
+  }, 1000);
+  restoreFn = item => {
+    const { title, text } = item;
+    this.updateNote(title, text);
+    this.setState(prevState => ({
+      noteData: {
+        ...prevState.noteData,
+        title,
+        text,
+      },
+    }));
+  };
+  updateNote = (title, text) => {
     api.notes.update(this.props.id, title, text).then(() => {
       this.setState({
         editTime: new Date(),
       });
     });
-  }, 1000);
+  };
   render() {
     const { noteData } = this.state;
     return (
@@ -86,6 +111,7 @@ class DetailModal extends PureComponent {
             <Input
               value={noteData.title}
               name="title"
+              autoFocus
               onChange={this.handleInputChange}
             />
           </FormItem>
@@ -99,6 +125,7 @@ class DetailModal extends PureComponent {
           </FormItem>
         </Form>
         <br />
+        <Versions data={this.state.versions} restoreFn={this.restoreFn} />
         <Footer time={this.state.editTime} closeModal={this.props.closeModal} />
       </Fragment>
     );

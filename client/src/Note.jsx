@@ -9,9 +9,9 @@ const NoteContent = styled.p`
   cursor: pointer;
 `;
 
-function Note({ title, children, loading, onClick, onDelete }) {
+function Note({ title, children, className, loading, onClick, onDelete }) {
   return (
-    <List.Item onClick={onClick}>
+    <List.Item onClick={onClick} className={className}>
       <Card
         title={title}
         extra={
@@ -33,6 +33,7 @@ function Note({ title, children, loading, onClick, onDelete }) {
 Note.defaultProps = {
   loading: false,
   onClick: () => {},
+  className: "",
 };
 
 Note.propTypes = {
@@ -41,6 +42,7 @@ Note.propTypes = {
   loading: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default Note;
