@@ -55,7 +55,7 @@ exports.create = [
 ];
 
 exports.findAll = (req, res) => {
-  const { after, limit = 4 } = req.query;
+  const { after, limit = 20 } = req.query;
   Note.paginate({
     order: [["createdAt", "DESC"]],
     desc: true,
