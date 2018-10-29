@@ -139,7 +139,7 @@ exports.update = [
           status: HTTP_CODE.HTTP_FAILURE,
           error: failure
         };
-        res.json(response);
+        res.status(404).json(response);
       }
     );
   }
