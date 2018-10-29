@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Row, Col, Skeleton, List } from "antd";
+import { Row, Col, Skeleton, List, Modal } from "antd";
 
 import Note from "./Note";
 import api from "./api";
 import CreateNew from "./CreateNew";
+import DetailModal from "./components/DetailModal";
 
 class Content extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Content extends Component {
       loading: false,
       data: [],
       deleting: false,
+      detailModal: null,
     };
   }
   componentDidMount() {
@@ -55,8 +57,19 @@ class Content extends Component {
       .finally(() => {
         this.setState({
           deleting: false,
+          detailModal: null,
         });
       });
+  };
+  showDetail = id => {
+    this.setState({
+      detailModal: id,
+    });
+  };
+  hideDetailModal = () => {
+    this.setState({
+      detailModal: null,
+    });
   };
   render() {
     if (this.state.loading) {
@@ -70,6 +83,7 @@ class Content extends Component {
         </Row>
       );
     }
+    const { detailModal } = this.state;
     return (
       <Fragment>
         <CreateNew createdNew={this.createdNew} />
@@ -81,12 +95,20 @@ class Content extends Component {
               key={item.id}
               title={item.title}
               loading={this.state.deleting}
+              onClick={() => this.showDetail(item.id)}
               onDelete={() => this.deleteNote(item.id)}
             >
               {item.text}
             </Note>
           )}
         />
+        <Modal
+          visible={!!detailModal}
+          closable={false}
+          onCancel={this.hideDetailModal}
+        >
+          <DetailModal id={detailModal} deleteNote={this.deleteNote} />
+        </Modal>
       </Fragment>
     );
   }

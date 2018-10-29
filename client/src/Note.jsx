@@ -6,11 +6,12 @@ import { Card, List, Button } from "antd";
 const NoteContent = styled.p`
   max-height: 200px;
   overflow-y: auto;
+  cursor: pointer;
 `;
 
-function Note({ title, children, loading, onDelete }) {
+function Note({ title, children, loading, onClick, onDelete }) {
   return (
-    <List.Item>
+    <List.Item onClick={onClick}>
       <Card
         title={title}
         extra={
@@ -31,6 +32,7 @@ function Note({ title, children, loading, onDelete }) {
 
 Note.defaultProps = {
   loading: false,
+  onClick: () => {},
 };
 
 Note.propTypes = {
@@ -38,6 +40,7 @@ Note.propTypes = {
   children: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default Note;
