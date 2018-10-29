@@ -17,7 +17,6 @@ class DetailModal extends Component {
     super(props);
     this.state = {
       loadingInfo: false,
-      editEnabled: false,
       noteData: {
         title: "",
         text: "",
@@ -57,25 +56,15 @@ class DetailModal extends Component {
       },
     }));
   };
-  enableEdit = () => {
-    this.setState({
-      editEnabled: true,
-    });
-  };
   deleteNote = () => {
     const { id, deleteNote } = this.props;
     deleteNote(id);
   };
   render() {
-    const { editEnabled, noteData } = this.state;
+    const { noteData } = this.state;
     return (
       <Fragment>
         <Header>
-          {!editEnabled && (
-            <Button type="primary" icon="edit" onClick={this.enableEdit}>
-              Edit
-            </Button>
-          )}
           <Button type="danger" ghost icon="delete" onClick={this.deleteNote}>
             Delete
           </Button>
@@ -84,7 +73,6 @@ class DetailModal extends Component {
         <Form>
           <FormItem label="Title">
             <Input
-              readOnly={!editEnabled}
               value={noteData.title}
               name="title"
               onChange={this.handleInputChange}
@@ -93,7 +81,6 @@ class DetailModal extends Component {
           <FormItem label="Text">
             <TextArea
               autosize
-              readOnly={!editEnabled}
               value={noteData.text}
               name="text"
               onChange={this.handleInputChange}
