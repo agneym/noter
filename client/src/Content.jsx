@@ -14,21 +14,24 @@ class Content extends Component {
       data: [],
       deleting: false,
       detailModal: null,
+      next: null,
     };
   }
   componentDidMount() {
-    this.getAllNotes();
+    this.loadData();
   }
-  getAllNotes = () => {
+  loadData = () => {
     this.setState({
       loading: true,
     });
     api.notes
-      .list()
+      .list(this.state.next)
       .then(response => {
+        const { results, next } = response.data;
         this.setState({
           loading: false,
-          data: response.data.result,
+          data: results,
+          next,
         });
       })
       .catch(console.error)
@@ -84,7 +87,7 @@ class Content extends Component {
         </Row>
       );
     }
-    const { detailModal, deleting } = this.state;
+    const { detailModal, deleting, loading } = this.state;
     return (
       <Fragment>
         <CreateNew createdNew={this.createdNew} />
@@ -92,7 +95,9 @@ class Content extends Component {
           data={this.state.data}
           onDelete={this.deleteNote}
           onClick={this.showDetail}
-          loading={deleting}
+          deleting={deleting}
+          loading={loading}
+          hasMore={!!this.state.next}
         />
         <Modal
           visible={!!detailModal}
