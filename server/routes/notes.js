@@ -5,7 +5,7 @@ const notes = require("../controllers/notesController");
 const versions = require("../controllers/notesVersionController");
 
 // Get versions of a note
-router.get("/version", versions.findAll);
+router.get("/version/:id", versions.findAll);
 
 // Create a new Note
 router.post("/", notes.create);
