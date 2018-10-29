@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import api from "./api";
 import { NOTIFICATION_MESSAGES } from "./constants";
 
+const FormItem = Form.Item;
 const { TextArea } = Input;
 
 class CreateNew extends Component {
@@ -49,19 +50,23 @@ class CreateNew extends Component {
   render() {
     return (
       <Form>
-        <Input
-          name="title"
-          placeholder="Title"
-          value={this.state.title}
-          onChange={this.handleInputChange}
-        />
-        <TextArea
-          name="text"
-          autosize
-          placeholder="Place note here"
-          value={this.state.text}
-          onChange={this.handleInputChange}
-        />
+        <FormItem>
+          <Input
+            name="title"
+            placeholder="Title"
+            value={this.state.title}
+            onChange={this.handleInputChange}
+          />
+        </FormItem>
+        <FormItem>
+          <TextArea
+            name="text"
+            autosize
+            placeholder="Place note here"
+            value={this.state.text}
+            onChange={this.handleInputChange}
+          />
+        </FormItem>
         <Button
           type="primary"
           loading={this.state.loading}
