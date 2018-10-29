@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Row, Col, Skeleton, List, Modal } from "antd";
 
-import Note from "./Note";
 import api from "./api";
 import CreateNew from "./CreateNew";
+import { StyledNote } from "./components/LayoutComponents";
 import DetailModal from "./components/DetailModal";
 
 class Content extends Component {
@@ -92,7 +92,7 @@ class Content extends Component {
           grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
           dataSource={this.state.data}
           renderItem={item => (
-            <Note
+            <StyledNote
               key={item.id}
               title={item.title}
               loading={this.state.deleting}
@@ -100,7 +100,7 @@ class Content extends Component {
               onDelete={event => this.deleteNote(event, item.id)}
             >
               {item.text}
-            </Note>
+            </StyledNote>
           )}
         />
         <Modal

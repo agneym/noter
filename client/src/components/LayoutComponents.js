@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Layout } from "antd";
 
+import Note from "../Note";
+
 const { Header, Sider, Content } = Layout;
 
 export const StyledHeader = styled(Header)`
@@ -24,4 +26,8 @@ export const StyledContent = styled(Content)`
   padding: 0 50px;
   margin-top: 64px;
   min-height: calc(100vh - 64 * 2px);
+`;
+
+export const StyledNote = styled(Note)`
+  cursor: pointer;
 `;

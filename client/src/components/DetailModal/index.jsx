@@ -86,6 +86,7 @@ class DetailModal extends PureComponent {
             <Input
               value={noteData.title}
               name="title"
+              autoFocus
               onChange={this.handleInputChange}
             />
           </FormItem>
