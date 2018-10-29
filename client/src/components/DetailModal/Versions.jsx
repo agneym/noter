@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { Collapse, List, Button } from "antd";
 
 const Panel = Collapse.Panel;
+
+const StyledList = styled(List)`
+  max-height: 150px;
+  overflow-y: auto;Styled
+`;
 
 function Versions({ data, restoreFn }) {
   return (
     <Collapse bordered={false} defaultActiveKey={["1"]}>
       <Panel header="Version History">
-        <List>
+        <StyledList>
           {data.map(item => (
             <List.Item
               actions={[
@@ -17,10 +23,10 @@ function Versions({ data, restoreFn }) {
                 </Button>,
               ]}
             >
-              <p>{new Date(item.archivedAt).toDateString()}</p>
+              <p>{new Date(item.archivedAt).toISOString()}</p>
             </List.Item>
           ))}
-        </List>
+        </StyledList>
       </Panel>
     </Collapse>
   );

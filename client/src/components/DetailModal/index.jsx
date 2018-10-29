@@ -80,12 +80,26 @@ class DetailModal extends PureComponent {
     const {
       noteData: { title, text },
     } = this.state;
+    this.updateNote(title, text);
+  }, 1000);
+  restoreFn = item => {
+    const { title, text } = item;
+    this.updateNote(title, text);
+    this.setState(prevState => ({
+      noteData: {
+        ...prevState.noteData,
+        title,
+        text,
+      },
+    }));
+  };
+  updateNote = (title, text) => {
     api.notes.update(this.props.id, title, text).then(() => {
       this.setState({
         editTime: new Date(),
       });
     });
-  }, 1000);
+  };
   render() {
     const { noteData } = this.state;
     return (
@@ -111,7 +125,7 @@ class DetailModal extends PureComponent {
           </FormItem>
         </Form>
         <br />
-        <Versions data={this.state.versions} />
+        <Versions data={this.state.versions} restoreFn={this.restoreFn} />
         <Footer time={this.state.editTime} closeModal={this.props.closeModal} />
       </Fragment>
     );
