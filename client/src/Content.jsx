@@ -43,7 +43,8 @@ class Content extends Component {
       data: [note, ...prevState.data],
     }));
   };
-  deleteNote = id => {
+  deleteNote = (event, id) => {
+    event.stopPropagation();
     this.setState({
       deleting: true,
     });
@@ -96,7 +97,7 @@ class Content extends Component {
               title={item.title}
               loading={this.state.deleting}
               onClick={() => this.showDetail(item.id)}
-              onDelete={() => this.deleteNote(item.id)}
+              onDelete={event => this.deleteNote(event, item.id)}
             >
               {item.text}
             </Note>
