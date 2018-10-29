@@ -3,10 +3,10 @@ const note = (sequelize, DataTypes) => {
     "note",
     {
       title: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
       text: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
       deletedAt: {
         type: DataTypes.DATE
