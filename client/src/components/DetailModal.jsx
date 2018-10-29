@@ -67,7 +67,9 @@ class DetailModal extends Component {
     deleteNote(id);
   };
   editNote = debounce(() => {
-    const { title, text } = this.state;
+    const {
+      noteData: { title, text },
+    } = this.state;
     api.notes.update(this.props.id, title, text);
   }, 1000);
   render() {
