@@ -27,12 +27,12 @@ class Content extends Component {
     api.notes
       .list(this.state.next)
       .then(response => {
-        const { results, next } = response.data;
-        this.setState({
+        const { results, after } = response.data.result;
+        this.setState(prevState => ({
           loading: false,
-          data: results,
-          next,
-        });
+          data: [...prevState.data, ...results],
+          next: after,
+        }));
       })
       .catch(console.error)
       .finally(() => {
@@ -87,17 +87,18 @@ class Content extends Component {
         </Row>
       );
     }
-    const { detailModal, deleting, loading } = this.state;
+    const { detailModal, deleting, loading, data } = this.state;
     return (
       <Fragment>
         <CreateNew createdNew={this.createdNew} />
         <ListNotes
-          data={this.state.data}
+          data={data}
           onDelete={this.deleteNote}
           onClick={this.showDetail}
           deleting={deleting}
           loading={loading}
           hasMore={!!this.state.next}
+          loadData={this.loadData}
         />
         <Modal
           visible={!!detailModal}

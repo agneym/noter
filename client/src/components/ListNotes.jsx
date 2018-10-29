@@ -23,7 +23,7 @@ class ListNotes extends Component {
         pageStart={0}
         loadMore={loadData}
         hasMore={!loading && hasMore}
-        useWindow={false}
+        useWindow={true}
       >
         <List
           grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
