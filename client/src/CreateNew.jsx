@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import PropTypes from "prop-types";
 
 import api from "./api";
+import { NOTIFICATION_MESSAGES } from "./constants";
 
+const FormItem = Form.Item;
 const { TextArea } = Input;
 
 class CreateNew extends Component {
@@ -33,6 +35,7 @@ class CreateNew extends Component {
       .create(title, text)
       .then(response => {
         this.props.createdNew(response.data.result);
+        message.success(NOTIFICATION_MESSAGES.noteAdded);
         this.setState({
           text: "",
           title: "",
@@ -47,19 +50,24 @@ class CreateNew extends Component {
   render() {
     return (
       <Form>
-        <Input
-          name="title"
-          placeholder="Title"
-          value={this.state.title}
-          onChange={this.handleInputChange}
-        />
-        <TextArea
-          name="text"
-          autosize
-          placeholder="Place note here"
-          value={this.state.text}
-          onChange={this.handleInputChange}
-        />
+        <FormItem>
+          <Input
+            name="title"
+            placeholder="Title"
+            value={this.state.title}
+            onChange={this.handleInputChange}
+          />
+        </FormItem>
+        <FormItem>
+          <TextArea
+            name="text"
+            autosize
+            placeholder="Take a Note"
+            value={this.state.text}
+            autoFocus
+            onChange={this.handleInputChange}
+          />
+        </FormItem>
         <Button
           type="primary"
           loading={this.state.loading}
