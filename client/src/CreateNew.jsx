@@ -62,7 +62,7 @@ class CreateNew extends Component {
           <TextArea
             name="text"
             autosize
-            placeholder="Place note here"
+            placeholder="Take a Note"
             value={this.state.text}
             autoFocus
             onChange={this.handleInputChange}
