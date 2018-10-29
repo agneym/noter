@@ -4,11 +4,9 @@ import styled from "styled-components";
 import { debounce } from "lodash";
 import { Form, Input, Button } from "antd";
 
-import api from "../api";
-
-const Header = styled.div`
-  float: right;
-`;
+import api from "../../api";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -22,6 +20,7 @@ class DetailModal extends Component {
         title: "",
         text: "",
       },
+      editTime: null,
     };
   }
   componentDidMount() {
@@ -56,6 +55,7 @@ class DetailModal extends Component {
           ...prevState.noteData,
           [name]: value,
         },
+        editTime: null,
       }),
       () => {
         this.editNote();
@@ -70,17 +70,17 @@ class DetailModal extends Component {
     const {
       noteData: { title, text },
     } = this.state;
-    api.notes.update(this.props.id, title, text);
+    api.notes.update(this.props.id, title, text).then(() => {
+      this.setState({
+        editTime: new Date(),
+      });
+    });
   }, 1000);
   render() {
     const { noteData } = this.state;
     return (
       <Fragment>
-        <Header>
-          <Button type="danger" ghost icon="delete" onClick={this.deleteNote}>
-            Delete
-          </Button>
-        </Header>
+        <Header deleteNote={this.deleteNote} />
         <br />
         <Form>
           <FormItem label="Title">
@@ -99,6 +99,8 @@ class DetailModal extends Component {
             />
           </FormItem>
         </Form>
+        <br />
+        <Footer />
       </Fragment>
     );
   }
