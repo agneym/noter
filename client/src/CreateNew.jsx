@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import PropTypes from "prop-types";
 
 import api from "./api";
+import { NOTIFICATION_MESSAGES } from "./constants";
 
 const { TextArea } = Input;
 
@@ -33,6 +34,7 @@ class CreateNew extends Component {
       .create(title, text)
       .then(response => {
         this.props.createdNew(response.data.result);
+        message.success(NOTIFICATION_MESSAGES.noteAdded);
         this.setState({
           text: "",
           title: "",
