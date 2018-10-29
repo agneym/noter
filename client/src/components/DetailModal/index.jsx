@@ -6,6 +6,7 @@ import { Form, Input } from "antd";
 import api from "../../api";
 import Header from "./Header";
 import Footer from "./Footer";
+import Versions from "./Versions";
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -19,11 +20,13 @@ class DetailModal extends PureComponent {
         title: "",
         text: "",
       },
+      versions: [],
       editTime: null,
     };
   }
   componentDidMount() {
     this.loadData();
+    this.loadVersions();
   }
   loadData = () => {
     const { id } = this.props;
@@ -42,6 +45,14 @@ class DetailModal extends PureComponent {
           loadingInfo: false,
         });
       });
+  };
+  loadVersions = () => {
+    const { id } = this.props;
+    api.notes.listVersions(id).then(response => {
+      this.setState({
+        versions: response.data.result,
+      });
+    });
   };
   handleInputChange = event => {
     const target = event.target;
@@ -100,6 +111,7 @@ class DetailModal extends PureComponent {
           </FormItem>
         </Form>
         <br />
+        <Versions data={this.state.versions} />
         <Footer time={this.state.editTime} closeModal={this.props.closeModal} />
       </Fragment>
     );
