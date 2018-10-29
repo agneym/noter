@@ -2,12 +2,14 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Form, Input, Button } from "antd";
+
 import api from "../api";
 
 const Header = styled.div`
   float: right;
 `;
 
+const FormItem = Form.Item;
 const { TextArea } = Input;
 
 class DetailModal extends Component {
@@ -78,20 +80,25 @@ class DetailModal extends Component {
             Delete
           </Button>
         </Header>
+        <br />
         <Form>
-          <Input
-            readOnly={!editEnabled}
-            value={noteData.title}
-            name="title"
-            onChange={this.handleInputChange}
-          />
-          <TextArea
-            autosize
-            readOnly={!editEnabled}
-            value={noteData.text}
-            name="text"
-            onChange={this.handleInputChange}
-          />
+          <FormItem label="Title">
+            <Input
+              readOnly={!editEnabled}
+              value={noteData.title}
+              name="title"
+              onChange={this.handleInputChange}
+            />
+          </FormItem>
+          <FormItem label="Text">
+            <TextArea
+              autosize
+              readOnly={!editEnabled}
+              value={noteData.text}
+              name="text"
+              onChange={this.handleInputChange}
+            />
+          </FormItem>
         </Form>
       </Fragment>
     );
