@@ -9,7 +9,7 @@ import axios from "../axios";
  */
 function update(id, title, text) {
   return axios({
-    method: "POST",
+    method: "PUT",
     url: `/notes/${id}`,
     data: {
       title,
