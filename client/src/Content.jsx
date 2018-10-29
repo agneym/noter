@@ -108,6 +108,7 @@ class Content extends Component {
           closable={false}
           onCancel={this.hideDetailModal}
           footer={null}
+          destroyOnClose
         >
           <DetailModal id={detailModal} deleteNote={this.deleteNote} />
         </Modal>
