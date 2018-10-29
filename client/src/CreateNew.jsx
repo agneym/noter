@@ -64,6 +64,7 @@ class CreateNew extends Component {
             autosize
             placeholder="Place note here"
             value={this.state.text}
+            autoFocus
             onChange={this.handleInputChange}
           />
         </FormItem>
