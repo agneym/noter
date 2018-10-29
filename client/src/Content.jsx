@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Row, Col, Skeleton, List, Modal } from "antd";
+import { Row, Col, Skeleton, Modal } from "antd";
 
 import api from "./api";
 import CreateNew from "./CreateNew";
-import { StyledNote } from "./components/LayoutComponents";
 import DetailModal from "./components/DetailModal";
+import ListNotes from "./components/ListNotes";
 
 class Content extends Component {
   constructor(props) {
@@ -84,24 +84,15 @@ class Content extends Component {
         </Row>
       );
     }
-    const { detailModal } = this.state;
+    const { detailModal, deleting } = this.state;
     return (
       <Fragment>
         <CreateNew createdNew={this.createdNew} />
-        <List
-          grid={{ gutter: 16, lg: 4, md: 3, sm: 2 }}
-          dataSource={this.state.data}
-          renderItem={item => (
-            <StyledNote
-              key={item.id}
-              title={item.title}
-              loading={this.state.deleting}
-              onClick={() => this.showDetail(item.id)}
-              onDelete={event => this.deleteNote(event, item.id)}
-            >
-              {item.text}
-            </StyledNote>
-          )}
+        <ListNotes
+          data={this.state.data}
+          onDelete={this.deleteNote}
+          onClick={this.showDetail}
+          loading={deleting}
         />
         <Modal
           visible={!!detailModal}
