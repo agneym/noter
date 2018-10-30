@@ -7,10 +7,10 @@ const dotenv = require("dotenv");
 const logger = require("morgan");
 const cors = require("cors");
 
+dotenv.load({ path: ".env" });
+
 const routes = require("./routes");
 const models = require("./models");
-
-dotenv.load({ path: ".env" });
 
 const app = express();
 
