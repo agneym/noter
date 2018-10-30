@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize(`postgres://agney:@127.0.0.1:5432/noter`, {
+const sequelize = new Sequelize(process.env.DB_URL, {
   operatorsAliases: false
 });
 
