@@ -7,7 +7,7 @@ Uses Webpack 4, Babel 7
 ## Quick Overview
 
 - `npm install` to install needed dependencies.
-- `npm start` to start the application on port 3002
+- `npm start` to start the application on port 8000
 - `npm build` to build the application.
 
 You can replace these with their `yarn` counterparts, if you prefer.
