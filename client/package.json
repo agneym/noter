@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "antd": "^3.10.3",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "date-fns": "^1.29.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.6.2",
